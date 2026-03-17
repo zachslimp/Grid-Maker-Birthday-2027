@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>25x25 Grid</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 40px repeat(25, 30px);
+      grid-template-rows: 40px repeat(25, 30px);
+      gap: 2px;
+    }
+
+    .label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .cell {
+      background-color: white;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    .cell.active {
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid" id="grid"></div>
+
+<script>
+  const grid = document.getElementById('grid');
+
+  const letters = Array.from({ length: 25 }, (_, i) =>
+    String.fromCharCode(65 + i)
+  );
+
+  // Top-left empty corner
+  grid.appendChild(document.createElement('div'));
+
+  // X-axis labels (1–25)
+  for (let i = 1; i <= 25; i++) {
+    const label = document.createElement('div');
+    label.className = 'label';
+    label.textContent = i;
+    grid.appendChild(label);
+  }
+
+  // Rows
+  letters.forEach(letter => {
+    // Y-axis label
+    const yLabel = document.createElement('div');
+    yLabel.className = 'label';
+    yLabel.textContent = letter;
+    grid.appendChild(yLabel);
+
+    // Cells
+    for (let i = 1; i <= 25; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+
+      cell.addEventListener('click', () => {
+        cell.classList.toggle('active');
+      });
+
+      grid.appendChild(cell);
+    }
+  });
+</script>
+
+</body>
+</html>
